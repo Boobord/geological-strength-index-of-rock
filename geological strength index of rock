@@ -1,0 +1,203 @@
+import math
+import sys 
+
+#Calculate the structural degree of rock mass(SR)
+i=1
+while i<100:
+    i+=1
+    try:
+       
+        mgz=int(input('Please enter the number of core larger than 10 cm:'))        
+    except ValueError:
+        print("  Please enter only the integer value")
+    else:
+        break
+i=1
+while i<100:
+    i+=1
+    try:
+        
+        Tootal_mgz = int(input ('Please enter the total number of cores : '))    
+    except ValueError:
+        print("  Please enter only the integer value")
+    else:
+        break 
+RQD = (mgz / Tootal_mgz) * 100
+Jv = (110 - RQD) / 2.5
+SR = 79.8 - (17.5*math.log(int(Jv)))
+
+#******************************************************************************************
+
+# Calculate the filling point of discontinuities  
+
+from IPython.display import display, Image
+display(Image(filename='11.png'))
+i=1
+while i<100:
+        try:
+            porshodegi=int(input('Please enter "filling code" a number between 1 and 3 based on the list above:'))
+        except ValueError:
+            print("Please enter only a number between 1 and 3:")
+        else:
+            if (porshodegi > 3) or (porshodegi < 1):
+                print("You have entered something out of range: ", porshodegi)
+            else:
+                break
+i+=1            
+if porshodegi==1:          
+                display(Image(filename='11.png'))          
+                i=1
+                while i<100:
+                        try:
+                            tosif=int(input('Please enter "description code" a number between 1 and 3 based on the list above:'))
+                        except ValueError:
+                            print("Please enter only a number between 1 and 5:")
+                        else:
+                            if (tosif > 5) or (tosif < 1):
+                                print("You have entered something out of range: ", tosif)
+                            else:
+                                break
+                i+=1                               
+                if 1<=tosif<=5:
+                            if tosif == 1:
+                                Rf = 6                             
+                            elif tosif == 2:
+                                Rf = 5                                
+                            elif tosif == 3:
+                                Rf = 5                    
+                            elif tosif == 4:
+                                Rf = 5
+                            elif tosif == 5:
+                                Rf = 4
+elif porshodegi==2:
+                display(Image(filename='11.png'))
+                i=1
+                while i<100:
+                        try:
+                            tosif=int(input('Please enter a description code between 1 and 4 based on the list above: '))
+                        except ValueError:
+                            print("Please enter only a number between 1 and 4")
+                        else:
+                            if (tosif > 4) or (tosif < 1):
+                                print("You've entered something out of range: ", tosif)
+                            else:
+                                break
+                i+=1                 
+                if 1<=tosif<=4:
+                        if tosif == 1:
+                            Rf=4
+                        elif tosif == 2:
+                            Rf = 3
+                        elif tosif == 3:
+                            Rf = 3
+                        elif tosif == 4:
+                            Rf = 2
+elif porshodegi==3:
+                display(Image(filename='11.png'))
+                while i<100:
+                            try:
+                                tosif=int(input('Please enter a description code between 1 and 3 based on the list above: '))
+                            except ValueError:
+                                print("  Please enter only a number between 1 and 3 ")
+                            else:
+                                if (tosif > 3) or (tosif < 1):
+                                    print("You entered something out of range: ", tosif)
+                                else:
+                                    break
+                i+=1                 
+                if 1<=tosif<=3:
+                        if tosif == 1:
+                            Rf = 2
+                        elif tosif == 2:
+                            Rf = 1
+                        elif tosif == 3:
+                            Rf = 1
+#**************************************************************************************************
+
+#Calculate roughness points (Rr)     
+
+i=1
+while i<100:
+    i+=1
+    try:
+        # طول درزه به متر 
+        tool_darze=int(input('Please enter the seam length in meters: '))        
+    except ValueError:
+        print("Please enter only an integer value")
+    else:
+        break
+i=1
+while i<100:
+    i+=1
+    try:
+        damane_moj = int(input ('Please enter the maximum joint wave amplitude in millimeters: '))    
+    except ValueError:
+        print("  Please enter only an integer value")
+    else:
+        break 
+
+
+JRC = (tool_darze / damane_moj)
+
+if  0 <= JRC < 2 :
+    Rr = 1
+elif 2 <= JRC < 6 :
+    Rr = 2
+elif 6 <= JRC < 10 :
+    Rr = 3
+elif 10 <= JRC < 14 :
+    Rr = 4
+elif 14 <= JRC < 18 :
+    Rr = 5
+elif 18 <= JRC <= 20 :
+    Rr = 6  
+    
+#****************************************************************************************************    
+#Calculate weathering score (Rw)    
+
+while i<100:
+    i+=1
+    try:        
+        Al2O3=int(input('please inter Al2O3 value : '))        
+    except ValueError:
+        print("  Please enter only an integer value")
+    else:
+        break
+i=1
+while i<100:
+    i+=1
+    try:        
+        CaO = int(input ('please inter Cao value: '))    
+    except ValueError:
+        print("Please enter only an integer value")
+    else:
+        break 
+i=1
+while i<100:
+    i+=1
+    try:        
+        Na2O = int(input ('please inter Na2O value: '))    
+    except ValueError:
+        print("  Please enter only an integer value")
+    else:
+        break         
+CIW = ( Al2O3 / (Al2O3 + CaO + Na2O)) * 100    
+if CIW < 50 :
+    Rw = 6 
+elif 50 <= CIW <= 50.99 :
+    Rw = 5
+elif 60 <= CIW <= 60.99 :
+    Rw = 4
+elif 70 <= CIW <= 70.99 :
+    Rw = 3
+elif 80 <= CIW <= 80.99 :
+    Rw = 2
+elif 90 <= CIW <= 100 :
+    Rw = 1
+    
+#***********************************************************************************************    
+#Calculate the surface conditions of discontinuities (SCR)    
+SCR = Rf + Rr + Rw
+print ('Score of discontinuous surface conditions: ',SCR)
+
+    
